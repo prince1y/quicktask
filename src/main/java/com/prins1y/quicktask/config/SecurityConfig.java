@@ -12,6 +12,7 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
+
         return new BCryptPasswordEncoder();
     }
 
@@ -20,7 +21,8 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable()) // Disable CSRF for development/testing
                 .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/h2-console/**", "/", "/register", "/login").permitAll() // Allow public access
+                    .requestMatchers("/h2-console/**", "/", "/api/auth/**", "/api/tasks/**",
+                            "/api/auth/login").permitAll() // Allow public access
                     .anyRequest().authenticated()
                 )
                 .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable())); // Allow H2 Console to load in browser frame
